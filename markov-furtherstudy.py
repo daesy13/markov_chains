@@ -23,7 +23,7 @@ def open_and_read_file(file_path):
     return full_string
 
 
-def make_chains(text_string):
+def make_chains(text_string, n=2):
     """Take input text as string; return dictionary of Markov chains.
 
     A chain will be a key that consists of a tuple of (word1, word2)
@@ -47,13 +47,15 @@ def make_chains(text_string):
         >>> chains[('there','juanita')]
         [None]
     """
+    n = int(sys.argv[2])
+
     # your code goes here
     text_list = text_string.split()
     chains = {}
 
-    for i in range(len(text_list)-2):
-        key = tuple(text_list[i:i+2])
-        value = text_list[i+2]
+    for i in range(len(text_list)-n):
+        key = tuple(text_list[i:i+n])
+        value = text_list[i+n]
         chains[key] = chains.get(key,[]) + [value]
 
     return chains
@@ -62,16 +64,20 @@ def make_chains(text_string):
 def make_text(chains):
     """Return text from chains."""
 
-    # words = []
+    words = []
 
     new_key = choice(list(chains.keys()))
-    words = [new_key[0],new_key[1]]
+    n = len(new_key)
+
+    for i in range(n):
+        words.append(new_key[i])
 
     while new_key in chains:
         new_keys_value = choice(chains[new_key])
-        words.append(new_keys_value)
-        new_key = (new_key[1], new_keys_value)
 
+        words.append(new_keys_value)
+
+        new_key = new_key[1:] + tuple([new_keys_value])
     # your code goes here
 
     return " ".join(words)
