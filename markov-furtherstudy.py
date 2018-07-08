@@ -6,9 +6,6 @@ import sys
 
 def open_and_read_file(file_path):
     full_string = str()
-
-    file_path = sys.argv[1]
-
     f = open(file_path)
     full_string = f.read()
     
@@ -47,7 +44,7 @@ def make_chains(text_string, n=2):
         >>> chains[('there','juanita')]
         [None]
     """
-    n = int(sys.argv[2])
+    
 
     # your code goes here
     text_list = text_string.split()
@@ -65,9 +62,11 @@ def make_text(chains):
     """Return text from chains."""
 
     words = []
-
     new_key = choice(list(chains.keys()))
     n = len(new_key)
+    
+    while new_key[0] != new_key[0].title():
+        new_key = choice(list(chains.keys()))
 
     for i in range(n):
         words.append(new_key[i])
@@ -78,18 +77,25 @@ def make_text(chains):
         words.append(new_keys_value)
 
         new_key = new_key[1:] + tuple([new_keys_value])
+
+        #break if the last character is a punctuation
+
+        if new_key[-1:][-1].isalpha() == False:
+            break
+
     # your code goes here
 
     return " ".join(words)
 
 
-input_path = "green-eggs.txt"
 
-# Open the file and turn it into one long string
+input_path = sys.argv[1]
+n = int(sys.argv[2])
+
 input_text = open_and_read_file(input_path)
 
 # Get a Markov chain
-chains = make_chains(input_text)
+chains = make_chains(input_text,n)
 
 # Produce random text
 random_text = make_text(chains)
