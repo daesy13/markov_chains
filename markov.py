@@ -7,11 +7,7 @@ def open_and_read_file(file_path):
     full_string = str()
 
     f = open(file_path)
-    for line in f:
-        line = line.rstrip()
-        full_string = full_string + " " + line
-
-    full_string = full_string.lstrip() 
+    full_string = f.read()
     
     """Take file path as string; return text as string.
 
@@ -49,7 +45,7 @@ def make_chains(text_string):
         [None]
     """
     # your code goes here
-    text_list = text_string.split(" ")
+    text_list = text_string.split()
     chains = {}
 
     for item in range(len(text_list)-2):
