@@ -48,9 +48,9 @@ def make_chains(text_string):
     text_list = text_string.split()
     chains = {}
 
-    for item in range(len(text_list)-2):
-        key = tuple(text_list[item:item+2])
-        value = text_list[item+2]
+    for i in range(len(text_list)-2):
+        key = tuple(text_list[i:i+2])
+        value = text_list[i+2]
         chains[key] = chains.get(key,[]) + [value]
 
     return chains
@@ -59,12 +59,14 @@ def make_chains(text_string):
 def make_text(chains):
     """Return text from chains."""
 
-    words = []
+    # words = []
 
-    random_key = choice(list(chains.keys()))
-    random_keys_value = choice(chains[random_key])
-    new_key = (random_key[1],random_keys_value)
-    words = [random_key[0],random_key[1],random_keys_value]
+    new_key = choice(list(chains.keys()))
+    # random_keys_value = choice(chains[random_key])
+
+    words = [new_key[0],new_key[1]]
+    # new_key = (random_key[1],random_keys_value)
+    # words = [random_key[0],random_key[1],random_keys_value]
     
     while new_key in chains:
         new_keys_value = choice(chains[new_key])
