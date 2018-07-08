@@ -75,11 +75,6 @@ def make_text(chains):
         words.append(new_keys_value)
         new_key = (new_key[1], new_keys_value)
 
-    print(words)
-
-
-
-
     # your code goes here
 
     return " ".join(words)
